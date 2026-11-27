@@ -1,14 +1,21 @@
 <div class="product">
-            <img src="images/logo.png" alt="robot head" />
+            <img [src]="getImageUrl()" [alt]="product().name"/>
             <div class="details">
                 <div>
-                    <h2>Friendly bot</h2>
-                    <p>A friendly robot</p>
-                    <p>Part type: Head</p>
+                    <h2>{{ product().name }}</h2>
+                    <p>{{ product().description }}</p>
+                    <p>Part type: {{ product().category }}</p>
                 </div>
             </div>
             <div class="price">
-                <p>$125</p>
-                <button class="cta">Buy</button>
+                @if (product().discount > 0)
+                {
+                    <p class="discounted">{{ product().price * (1-product().discount) | currency}} (Sale)</p>
+                }
+                @else
+                {
+                    <p class="discounted">{{ product().price | currency}}</p>
+                }
+                <button class="cta" (click)="addToCart($event)">Buy</button>
             </div>
 </div>
